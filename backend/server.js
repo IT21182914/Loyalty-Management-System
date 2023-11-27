@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const { authenticateToken } = require("./middlewares/authMiddleware");
 const User = require("./models/userModel");
 const cors = require('cors');
+const adminRoutes = require("./routes/adminRoutes");
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(cors());
 
 // Use authentication routes
 app.use("/auth", authRoutes);
+app.use("/admin", adminRoutes);
 
 mongoose.connect(process.env.ATLAS_URI, {
   useNewUrlParser: true,

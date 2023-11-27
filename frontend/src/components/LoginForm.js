@@ -100,7 +100,7 @@ const LoginForm = () => {
                 to="/registration"
                 className="font-medium text-primary-600 hover:underline dark:text-primary-500"
               >
-                Sign Up here
+                Sign Up
               </Link>
             </p>
           </div>
