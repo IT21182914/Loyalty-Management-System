@@ -1,0 +1,57 @@
+GET http://localhost:3000/posts 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3lsZSIsImlhdCI6MTcwMTA3MjY4NiwiZXhwIjoxNzAxMDcyNzAxfQ.lE3acTxs4dO9BN1x135lBtAGTY04QuI4taCg0ahGbaQ
+###
+
+
+
+DELETE http://localhost:4000/logout
+Content-Type:  application/json
+
+{
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3lsZSIsImlhdCI6MTcwMTA3Mjg4Nn0.rvHva8L_PlAQemx7GALG5ajEyjNeztuEXp8eZi9X76c"
+}
+
+
+
+###
+
+
+
+POST http://localhost:4000/token
+Content-Type: application/json
+
+{
+    "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3lsZSIsImlhdCI6MTcwMTA3Mjg4Nn0.rvHva8L_PlAQemx7GALG5ajEyjNeztuEXp8eZi9X76c"
+}
+
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "Kyle"
+}
+
+
+###
+
+POST http://localhost:8000/auth/register
+Content-Type: application/json
+
+{
+  "name": "Dilans",
+  "password": "dilan",
+  "email": "dilanshanuka@gmail.com"
+}
+
+###
+
+curl -X POST \
+  http://localhost:8000/auth/login \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "username": "Dilans",
+    "password": "dilan"
+  }'
+
