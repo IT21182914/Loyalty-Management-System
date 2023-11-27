@@ -1,4 +1,3 @@
-// LoginForm.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import axios from 'axios';
@@ -21,18 +20,29 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       // Send login data to the backend
       const response = await axios.post('http://localhost:8000/auth/login', {
-        username: formData.username, // Change to username
+        username: formData.username,
         password: formData.password,
       });
-
+  
       // Check if login was successful
       if (response.status === 200) {
         console.log('User logged in successfully');
-        // You can handle success here, e.g., show a success message or redirect
+  
+        // Extract user role from the response
+        const role = response.data.role;
+  
+        // Redirect based on user role
+        if (role === 'user') {
+          // User is an admin, redirect to admin dashboard
+          window.location.href = '/user';
+        } else {
+          // User is not an admin, redirect to user dashboard
+          window.location.href = '/admin';
+        }
       } else {
         console.error('Failed to log in');
         // Handle login failure
@@ -43,6 +53,8 @@ const LoginForm = () => {
       // Handle other errors
     }
   };
+  
+  
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">

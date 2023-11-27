@@ -1,9 +1,10 @@
 // App.js
-import React from "react";
-import RegistrationForm from "./components/RegistrationForm";
-import LoginForm from "./components/LoginForm";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AdminDashboard from "./components/AdminDashboard";
+import React from 'react';
+import RegistrationForm from './components/RegistrationForm';
+import LoginForm from './components/LoginForm';
+import AdminDashboard from './components/AdminDashboard';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UserDashboard from './components/UserDashboard';
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginForm />} />
         <Route path="/registration" element={<RegistrationForm />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/*" element={<AdminDashboard />} />
+        <Route path="/user/*" element={<UserDashboard />} />
+       
       </Routes>
     </Router>
   );

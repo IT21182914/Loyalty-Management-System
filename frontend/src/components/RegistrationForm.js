@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -28,12 +28,6 @@ const RegistrationForm = () => {
       // Validate the password and confirm password
       if (formData.password !== formData.confirmPassword) {
         toast.error('Password mismatch');
-        return;
-      }
-
-      // Validate password length
-      if (formData.password.length < 6) {
-        toast.error('Password must be greater than 6 characters');
         return;
       }
 
@@ -123,12 +117,12 @@ const RegistrationForm = () => {
               </button>
             </form>
             <p className="text-sm font-light text-gray-500 text-center dark:text-white">
-              Already have an account?{" "}
+            Already have an account?{" "}
               <Link
                 to="/"
                 className="font-medium text-primary-600 hover:underline dark:text-primary-500"
               >
-                Sign in
+                Sign in 
               </Link>
             </p>
           </div>

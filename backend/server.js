@@ -53,11 +53,12 @@ app.post("/login", async (req, res) => {
   // Replace this with your actual user validation logic
   // For simplicity, this example assumes all users are valid
   const validUser = await User.findOne({ name: username });
+
   if (!validUser || !(await validUser.isValidPassword(password))) {
     return res.status(401).json({ error: "Invalid credentials" });
   }
 
-  const user = { name: username };
+  const user = { name: validUser.name, role: validUser.role }; // Include user role in the token
 
   const accessToken = generateAccessToken(user);
   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
