@@ -25,6 +25,8 @@ const AddPointsModal = ({ user, onAddPoints, onClose }) => {
       // Handle network or unexpected errors
       console.error('Error adding loyalty points:', error.message);
     }
+
+    window.location.reload();
   };
 
   return (

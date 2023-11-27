@@ -186,12 +186,10 @@ const AdminDashboard = () => {
                 <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
                   {user.name}
                 </h5>
-                <span className="text-sm text-gray-500 dark:text-gray-400">
-                  {user.role}
-                </span>
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                  Loyalty Points: {user.loyaltyPoints}
-                </p>
+                <p className="mt-2 text-lg font-semibold text-indigo-600 dark:text-indigo-400">
+  🌟 Loyalty Points: {user.loyaltyPoints}
+</p>
+
                 <div className="flex mt-4 md:mt-6">
                   <button
                     onClick={() => openUpdateModal(user)}
