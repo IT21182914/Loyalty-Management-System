@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +28,12 @@ const RegistrationForm = () => {
       // Validate the password and confirm password
       if (formData.password !== formData.confirmPassword) {
         toast.error('Password mismatch');
+        return;
+      }
+
+      // Validate password length
+      if (formData.password.length < 6) {
+        toast.error('Password must be greater than 6 characters');
         return;
       }
 
@@ -110,11 +117,20 @@ const RegistrationForm = () => {
               </div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Create an account
               </button>
             </form>
+            <p className="text-sm font-light text-gray-500 text-center dark:text-white">
+              Already have an account?{" "}
+              <Link
+                to="/"
+                className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+              >
+                Sign in
+              </Link>
+            </p>
           </div>
         </div>
       </div>
