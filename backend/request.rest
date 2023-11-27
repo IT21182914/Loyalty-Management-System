@@ -40,9 +40,9 @@ POST http://localhost:8000/auth/register
 Content-Type: application/json
 
 {
-  "name": "Dilans",
+  "name": "Dilanss",
   "password": "dilan",
-  "email": "dilanshanuka@gmail.com"
+  "email": "dilanshanukia@gmail.com"
 }
 
 ###

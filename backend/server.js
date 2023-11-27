@@ -6,12 +6,14 @@ const mongoose = require("./db/conn");
 const authRoutes = require("./routes/authRoutes");
 const { authenticateToken } = require("./middlewares/authMiddleware");
 const User = require("./models/userModel");
+const cors = require('cors');
 
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Use authentication routes
 app.use("/auth", authRoutes);
