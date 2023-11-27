@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import UpdateUserModal from './UpdateUserModal';
+import AddPointsModal from './AddPointsModal';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
+  const [isAddPointsModalOpen, setAddPointsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
@@ -35,6 +37,16 @@ const AdminDashboard = () => {
     setUpdateModalOpen(false);
   };
 
+  const openAddPointsModal = (user) => {
+    setSelectedUser(user);
+    setAddPointsModalOpen(true);
+  };
+
+  const closeAddPointsModal = () => {
+    setSelectedUser(null);
+    setAddPointsModalOpen(false);
+  };
+
   const updateUserData = async (userId, newName) => {
     try {
       const response = await axios.put(`http://localhost:8000/admin/users/${userId}`, { name: newName });
@@ -52,6 +64,23 @@ const AdminDashboard = () => {
     }
   };
 
+  const addPointsToUser = async (userId, pointsToAdd) => {
+    try {
+      const response = await axios.put(`http://localhost:8000/admin/users/${userId}/loyaltyPoints`, { pointsToAdd });
+
+      setUsers((prevUsers) =>
+        prevUsers.map((user) => (user._id === userId ? response.data.user : user))
+      );
+
+      closeAddPointsModal();
+
+      return response.data;
+    } catch (error) {
+      console.error('Error adding loyalty points:', error);
+      throw error;
+    }
+  };
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900 min-h-screen">
       <div className="container mx-auto py-8">
@@ -60,7 +89,7 @@ const AdminDashboard = () => {
         </h1>
 
         <form className="max-w-md mx-auto mb-4">
-        <label
+          <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
           >
@@ -160,6 +189,9 @@ const AdminDashboard = () => {
                 <span className="text-sm text-gray-500 dark:text-gray-400">
                   {user.role}
                 </span>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  Loyalty Points: {user.loyaltyPoints}
+                </p>
                 <div className="flex mt-4 md:mt-6">
                   <button
                     onClick={() => openUpdateModal(user)}
@@ -167,12 +199,12 @@ const AdminDashboard = () => {
                   >
                     Update User
                   </button>
-                  <a
-                    href="#"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 ms-3"
+                  <button
+                    onClick={() => openAddPointsModal(user)}
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-500 rounded-lg hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ms-3"
                   >
                     Add Loyalty Points
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -190,6 +222,19 @@ const AdminDashboard = () => {
             onClose={closeUpdateModal}
           />
         )}
+
+        {/* Render the AddPointsModal component */}
+        {isAddPointsModalOpen && selectedUser && (
+  <AddPointsModal
+    user={selectedUser}
+    onAddPoints={(userId, pointsToAdd) => {
+      // Add the logic to handle adding/deducting loyalty points here
+      console.log(`Adding/Deducting ${pointsToAdd} points to user ${userId}`);
+      closeAddPointsModal();
+    }}
+    onClose={closeAddPointsModal}
+  />
+)}
       </div>
     </section>
   );

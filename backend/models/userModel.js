@@ -11,6 +11,10 @@ const userSchema = new Schema({
     enum: ['user', 'admin'],
     default: 'user', // Set the default role to 'user'
   },
+  loyaltyPoints: {
+    type: Number,
+    default: 0, // Set the default loyalty points to 0
+  },
 });
 
 const User = mongoose.model('User', userSchema);
