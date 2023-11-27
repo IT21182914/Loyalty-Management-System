@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/userModel');
 
-// Define a route to get all users with role 'user'
+// Route to get all users with role 'user'
 router.get('/users', async (req, res) => {
   try {
     const users = await User.find({ role: 'user' });
@@ -10,6 +10,25 @@ router.get('/users', async (req, res) => {
   } catch (error) {
     console.error('Error fetching users:', error);
     res.status(500).send('Internal Server Error');
+  }
+});
+
+// Route to update a user by ID
+router.put('/users/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  const { name } = req.body;
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(userId, { name }, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    res.status(200).json({ success: true, user: updatedUser });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
 
