@@ -1,4 +1,3 @@
-// backend/src/controllers/authController.js
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
@@ -29,11 +28,6 @@ const createUser = async (req, res) => {
   }
 };
 
-// backend/src/controllers/authController.js
-
-// backend/src/controllers/authController.js
-
-// backend/src/controllers/authController.js
 
 const loginUser = async (req, res) => {
   try {
@@ -42,8 +36,6 @@ const loginUser = async (req, res) => {
     // Log received credentials
     console.log('Received credentials:', { username, password });
 
-    // Replace this with your actual user validation logic
-    // For simplicity, this example assumes all users are valid
     const validUser = await User.findOne({ name: { $regex: new RegExp(`^${username}$`, 'i') } });
 
     console.log('Valid user:', validUser);
@@ -107,5 +99,4 @@ module.exports = {
   createUser,
   loginUser,
   getAllUsers,
-  // ... (other exports)
 };

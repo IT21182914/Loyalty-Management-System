@@ -1,4 +1,3 @@
-// backend/src/routes/authRoutes.js
 const express = require('express');
 const { createUser, loginUser, getAllUsers } = require('../controllers/authController');
 const router = express.Router();
