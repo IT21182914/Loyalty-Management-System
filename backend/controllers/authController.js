@@ -61,12 +61,13 @@ const loginUser = async (req, res) => {
     const refreshToken = jwt.sign({ userId: _id, role }, process.env.REFRESH_TOKEN_SECRET);
     refreshTokens.push(refreshToken);
 
-    res.json({ accessToken, refreshToken });
+    res.json({ accessToken, refreshToken, role }); // Include the user role in the response
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).send('Internal Server Error');
   }
 };
+
 
 
 

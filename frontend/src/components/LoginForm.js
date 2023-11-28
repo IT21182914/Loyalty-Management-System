@@ -36,12 +36,12 @@ const LoginForm = () => {
         const role = response.data.role;
   
         // Redirect based on user role
-        if (role === 'user') {
+        if (role === 'admin') {
           // User is an admin, redirect to admin dashboard
-          window.location.href = '/user';
+          window.location.href = '/admin';
         } else {
           // User is not an admin, redirect to user dashboard
-          window.location.href = '/admin';
+          window.location.href = '/user';
         }
       } else {
         console.error('Failed to log in');

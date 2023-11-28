@@ -71,10 +71,15 @@ function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
 }
 
-// Example protected route
+
 app.get("/protected", authenticateToken, (req, res) => {
-  res.json({ message: "This is a protected route" });
+  if (req.user.role === 'admin') {
+    res.json({ message: "This is a protected admin route" });
+  } else {
+    res.json({ message: "This is a protected user route" });
+  }
 });
+
 
 app.listen(PORT, () => {
   console.log(`\n\nServer is running on PORT: ${PORT} 🔥`);
