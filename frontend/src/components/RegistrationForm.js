@@ -23,24 +23,25 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       // Validate the password and confirm password
       if (formData.password !== formData.confirmPassword) {
         toast.error('Password mismatch');
         return;
       }
-
+  
       // Send registration data to the backend
       const response = await axios.post('http://localhost:8000/auth/register', {
         name: formData.name,
         email: formData.email,
         password: formData.password,
       });
-
+  
       if (response.status === 201) {
         toast.success('User registered successfully');
-        // You can handle success here, e.g., show a success message or redirect
+        // Redirect to the login page after successful registration
+        window.location.href = '/';
       } else {
         toast.error('Failed to register user');
         // Handle registration failure
@@ -51,6 +52,7 @@ const RegistrationForm = () => {
       // Handle other errors
     }
   };
+  
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
