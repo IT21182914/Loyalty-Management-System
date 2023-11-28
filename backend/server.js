@@ -1,4 +1,3 @@
-// backend/src/server.js
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
@@ -50,15 +49,14 @@ app.delete("/logout", (req, res) => {
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
-  // Replace this with your actual user validation logic
-  // For simplicity, this example assumes all users are valid
+
   const validUser = await User.findOne({ name: username });
 
   if (!validUser || !(await validUser.isValidPassword(password))) {
     return res.status(401).json({ error: "Invalid credentials" });
   }
 
-  const user = { name: validUser.name, role: validUser.role }; // Include user role in the token
+  const user = { name: validUser.name, role: validUser.role }; 
 
   const accessToken = generateAccessToken(user);
   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);

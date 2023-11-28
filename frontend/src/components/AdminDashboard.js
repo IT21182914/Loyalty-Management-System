@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import UpdateUserModal from './UpdateUserModal';
-import AddPointsModal from './AddPointsModal';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import UpdateUserModal from "./UpdateUserModal";
+import AddPointsModal from "./AddPointsModal";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
   const [isAddPointsModalOpen, setAddPointsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -13,10 +13,10 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/admin/users');
+        const response = await axios.get("http://localhost:8000/admin/users");
         setUsers(response.data);
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error("Error fetching users:", error);
       }
     };
 
@@ -49,34 +49,46 @@ const AdminDashboard = () => {
 
   const updateUserData = async (userId, newName) => {
     try {
-      const response = await axios.put(`http://localhost:8000/admin/users/${userId}`, { name: newName });
+      const response = await axios.put(
+        `http://localhost:8000/admin/users/${userId}`,
+        { name: newName }
+      );
 
       setUsers((prevUsers) =>
-        prevUsers.map((user) => (user._id === userId ? { ...user, name: response.data.user.name } : user))
+        prevUsers.map((user) =>
+          user._id === userId
+            ? { ...user, name: response.data.user.name }
+            : user
+        )
       );
 
       closeUpdateModal();
 
       return response.data;
     } catch (error) {
-      console.error('Error updating user:', error);
+      console.error("Error updating user:", error);
       throw error;
     }
   };
 
   const addPointsToUser = async (userId, pointsToAdd) => {
     try {
-      const response = await axios.put(`http://localhost:8000/admin/users/${userId}/loyaltyPoints`, { pointsToAdd });
+      const response = await axios.put(
+        `http://localhost:8000/admin/users/${userId}/loyaltyPoints`,
+        { pointsToAdd }
+      );
 
       setUsers((prevUsers) =>
-        prevUsers.map((user) => (user._id === userId ? response.data.user : user))
+        prevUsers.map((user) =>
+          user._id === userId ? response.data.user : user
+        )
       );
 
       closeAddPointsModal();
 
       return response.data;
     } catch (error) {
-      console.error('Error adding loyalty points:', error);
+      console.error("Error adding loyalty points:", error);
       throw error;
     }
   };
@@ -154,9 +166,7 @@ const AdminDashboard = () => {
                     <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
                   </svg>
                 </button>
-                <div
-                  className="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-                >
+                <div className="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                   <ul className="py-2" aria-labelledby="dropdownButton">
                     <li>
                       <a
@@ -187,8 +197,8 @@ const AdminDashboard = () => {
                   {user.name}
                 </h5>
                 <p className="mt-2 text-lg font-semibold text-indigo-600 dark:text-indigo-400">
-  🌟 Loyalty Points: {user.loyaltyPoints}
-</p>
+                  🌟 Loyalty Points: {user.loyaltyPoints}
+                </p>
 
                 <div className="flex mt-4 md:mt-6">
                   <button
@@ -209,7 +219,6 @@ const AdminDashboard = () => {
           ))}
         </div>
 
-        {/* Render the UpdateUserModal component */}
         {isUpdateModalOpen && selectedUser && (
           <UpdateUserModal
             user={selectedUser}
@@ -221,18 +230,18 @@ const AdminDashboard = () => {
           />
         )}
 
-        {/* Render the AddPointsModal component */}
         {isAddPointsModalOpen && selectedUser && (
-  <AddPointsModal
-    user={selectedUser}
-    onAddPoints={(userId, pointsToAdd) => {
-      // Add the logic to handle adding/deducting loyalty points here
-      console.log(`Adding/Deducting ${pointsToAdd} points to user ${userId}`);
-      closeAddPointsModal();
-    }}
-    onClose={closeAddPointsModal}
-  />
-)}
+          <AddPointsModal
+            user={selectedUser}
+            onAddPoints={(userId, pointsToAdd) => {
+              console.log(
+                `Adding/Deducting ${pointsToAdd} points to user ${userId}`
+              );
+              closeAddPointsModal();
+            }}
+            onClose={closeAddPointsModal}
+          />
+        )}
       </div>
     </section>
   );

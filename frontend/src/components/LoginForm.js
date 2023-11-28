@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import axios from 'axios';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
-    username: '', // Change to username
-    password: '',
+    username: "",
+    password: "",
   });
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,41 +20,38 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      // Send login data to the backend
-      const response = await axios.post('http://localhost:8000/auth/login', {
+      const response = await axios.post("http://localhost:8000/auth/login", {
         username: formData.username,
         password: formData.password,
       });
-  
+
       // Check if login was successful
       if (response.status === 200) {
-        console.log('User logged in successfully');
-  
+        console.log("User logged in successfully");
+
         // Extract user role from the response
         const role = response.data.role;
-  
+
         // Redirect based on user role
-        if (role === 'admin') {
+        if (role === "admin") {
           // User is an admin, redirect to admin dashboard
-          window.location.href = '/admin';
+          window.location.href = "/admin";
         } else {
           // User is not an admin, redirect to user dashboard
-          window.location.href = '/user';
+          window.location.href = "/user";
         }
       } else {
-        console.error('Failed to log in');
+        console.error("Failed to log in");
         // Handle login failure
       }
     } catch (error) {
-      console.error('Error during login:', error);
-      setError('An error occurred during login. Please try again.');
+      console.error("Error during login:", error);
+      setError("An error occurred during login. Please try again.");
       // Handle other errors
     }
   };
-  
-  
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -66,7 +63,10 @@ const LoginForm = () => {
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                  htmlFor="username"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Username
                 </label>
                 <input
@@ -80,7 +80,10 @@ const LoginForm = () => {
                 />
               </div>
               <div>
-                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Password
                 </label>
                 <input
@@ -94,9 +97,7 @@ const LoginForm = () => {
                 />
               </div>
               {error && (
-                <div className="text-red-500 text-sm mt-2">
-                  {error}
-                </div>
+                <div className="text-red-500 text-sm mt-2">{error}</div>
               )}
               <button
                 type="submit"
