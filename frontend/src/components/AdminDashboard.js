@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import UpdateUserModal from "./UpdateUserModal";
 import AddPointsModal from "./AddPointsModal";
+import LogoutButton from "./LogoutButton";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -99,7 +100,9 @@ const AdminDashboard = () => {
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white text-center">
           Admin Dashboard
         </h1>
-
+        <div className="absolute top-4 right-4">
+        <LogoutButton />
+      </div>
         <form className="max-w-md mx-auto mb-4">
           <label
             htmlFor="default-search"

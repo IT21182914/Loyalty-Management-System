@@ -40,8 +40,9 @@ const RegistrationForm = () => {
   
       if (response.status === 201) {
         toast.success('User registered successfully');
-        // Redirect to the login page after successful registration
-        window.location.href = '/';
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
       } else {
         toast.error('Failed to register user');
         // Handle registration failure
